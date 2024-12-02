@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Haru.iml" filepath="$PROJECT_DIR$/.idea/modules/Haru.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Haru.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Haru.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Haru.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Haru.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.nemi.Haru.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.nemi.Haru.main.iml" />
     </modules>
   </component>
 </project>
