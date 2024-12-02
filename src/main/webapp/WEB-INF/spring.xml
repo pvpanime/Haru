@@ -86,5 +86,5 @@
 
 <!--    <mybatis:scan base-package="dev.nemi.haru.mapper" />-->
     <mybatis:scan base-package="dev.nemi.haru.mapper" />
-
+    <context:component-scan base-package="dev.nemi.haru.config" />
 </beans>

@@ -1,22 +1,23 @@
-package dev.nemi.haru.board;
+package dev.nemi.haru.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 import org.springframework.lang.Nullable;
 
 import java.time.Instant;
 
-@Value
+@Data
 @Builder
-@NoArgsConstructor(force=true)
+@NoArgsConstructor
 @AllArgsConstructor
-public class BoardVO {
+public class BoardViewDTO {
   long id;
   String title;
   String content;
   Instant added;
   Instant updated;
-  @Nullable String userid;
+  @Nullable
+  String userid;
 }
