@@ -13,4 +13,5 @@
 <body>
   <h1>Furk</h1>
 </body>
+<script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
 </html>
