@@ -11,17 +11,24 @@
 <div class="container-fluid py-4">
     <div class="card" data-task-id="${task.getId()}">
       <div class="card-header">
-        <div class="h5 my-0">
-          <c:out value="${task.getTitle()}" />
+        <div class="row justify-content-between">
+          <div class="col h5 my-0">
+            <c:out value="${task.getTitle()}"/>
+          </div>
+          <div class="col-md-auto">
+            <a href="/task/edit/${task.getId()}" class="btn btn-sm btn-outline-light p-1">Edit</a>
+          </div>
         </div>
       </div>
       <div class="card-body">
         <c:out value="${task.getContent()}" />
       </div>
-      <div class="card-footer list-group">
-        <div class="list-group-item">From <c:out value="${task.getStart()}" /></div>
-        <div class="list-group-item">Due to <c:out value="${task.getEnd()}" /></div>
-      </div>
+<%--      <div class="card-footer">--%>
+        <div class="list-group list-group-flush">
+          <div class="list-group-item">From <c:out value="${task.getStart()}" /></div>
+          <div class="list-group-item">Due to <c:out value="${task.getEnd()}" /></div>
+        </div>
+<%--      </div>--%>
     </div>
   </div>
 </body>
