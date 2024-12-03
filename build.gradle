@@ -43,28 +43,28 @@ dependencies {
 
   // JSTL
   // https://mvnrepository.com/artifact/javax.servlet/jstl
-  implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
-
+//  implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+  implementation group: 'jstl', name: 'jstl', version: '1.2'
 
 
   // Spring
   // https://mvnrepository.com/artifact/org.springframework/spring-core
-  implementation group: 'org.springframework', name: 'spring-core', version: '5.3.39'
+  implementation group: 'org.springframework', name: 'spring-core', version: '5.3.19'
 
   // https://mvnrepository.com/artifact/org.springframework/spring-context
-  implementation group: 'org.springframework', name: 'spring-context', version: '5.3.39'
+  implementation group: 'org.springframework', name: 'spring-context', version: '5.3.19'
 
   // https://mvnrepository.com/artifact/org.springframework/spring-test
-  testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.39'
+  testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.19'
 
   // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
-  implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.39'
+  implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.19'
 
   // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
-  implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.39'
+  implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.19'
 
   // https://mvnrepository.com/artifact/org.springframework/spring-tx
-  implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.39'
+  implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.19'
 
 
 

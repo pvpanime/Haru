@@ -1,5 +1,6 @@
 package dev.nemi.haru.service;
 
+import dev.nemi.haru.board.BoardVO;
 import dev.nemi.haru.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +19,11 @@ public class BoardServiceReal implements BoardService {
   private final ModelMapper modelMapper;
 
   @Override
+  public long getMaxPages(int numPerPage) {
+    return boardMapper.getMaxPages(numPerPage);
+  }
+
+  @Override
   public BoardViewDTO getBoard(long id) {
     return modelMapper.map(boardMapper.getBoard(id), BoardViewDTO.class);
   }
@@ -25,5 +31,15 @@ public class BoardServiceReal implements BoardService {
   @Override
   public List<BoardViewDTO> getBoardListAt(long start, int count) {
     return boardMapper.getBoardListAt(start, count).stream().map(board -> modelMapper.map(board, BoardViewDTO.class)).collect(Collectors.toList());
+  }
+
+  @Override
+  public int write(BoardWriteDTO dto) {
+    return boardMapper.insert(modelMapper.map(dto, BoardVO.class));
+  }
+
+  @Override
+  public int edit(BoardEditDTO dto) {
+    return boardMapper.update(modelMapper.map(dto, BoardVO.class));
   }
 }
