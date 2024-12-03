@@ -1,6 +1,6 @@
 package dev.nemi.haru.controller;
 
-import dev.nemi.haru.service.BoardWriteDTO;
+import dev.nemi.haru.service.board.BoardWriteDTO;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
@@ -44,4 +44,5 @@ public class ArgReflectController {
   public ResponseEntity<String> fixed(BoardWriteDTO dto) {
     return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(new JSONObject(dto).toString());
   }
+
 }

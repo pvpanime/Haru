@@ -18,7 +18,7 @@
         <a href="/board/read/${board.getId()}" class="list-group-item list-group-item-action text-body text-decoration-none">
           <div class="d-flex justify-content-between">
             <span class="flex-grow-1">${board.getTitle()}</span>
-            <span class="text-body-secondary">${board.getAdded()}</span>
+            <span class="text-body-secondary small">${board.getAdded()}</span>
           </div>
         </a>
       </c:forEach>
@@ -58,6 +58,6 @@
     </div>
   </main>
 </div>
-
+<jsp:include page="/WEB-INF/include/bs-script.jsp" />
 </body>
 </html>

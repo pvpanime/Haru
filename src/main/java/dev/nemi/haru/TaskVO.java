@@ -1,22 +1,21 @@
-package dev.nemi.haru.board;
+package dev.nemi.haru;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Value;
-import org.springframework.lang.Nullable;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Value
 @Builder
 @NoArgsConstructor(force=true)
 @AllArgsConstructor
-public class BoardVO {
+public class TaskVO {
   long id;
   String title;
   String content;
-  Instant added;
-  Instant updated;
-  @Nullable String userid;
+  LocalDateTime start;
+  LocalDateTime end;
+  int finished;
 }

@@ -1,6 +1,6 @@
 package dev.nemi.haru.mapper;
 
-import dev.nemi.haru.board.BoardVO;
+import dev.nemi.haru.BoardVO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

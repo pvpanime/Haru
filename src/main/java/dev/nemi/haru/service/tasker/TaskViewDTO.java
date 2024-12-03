@@ -1,23 +1,21 @@
-package dev.nemi.haru.service;
+package dev.nemi.haru.service.tasker;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardViewDTO {
-  long id;
+public class TaskViewDTO {
+  private long id;
   String title;
   String content;
-  Instant added;
-  Instant updated;
-  @Nullable
-  String userid;
+  LocalDateTime start;
+  LocalDateTime end;
+  int finished;
 }

@@ -1,3 +1,4 @@
+<%--@elvariable id="board" type="dev.nemi.haru.service.board.BoardViewDTO"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,16 +10,17 @@
 <div class="container py-5">
   <main>
     <h1 class="text-center mb-4">Write Board!</h1>
-    <form action="${pageContext.request.contextPath}/board/write" method="post">
+    <form action="${pageContext.request.contextPath}/board/edit/${board.getId()}" method="post">
+      <input type="hidden" name="id" value="${board.getId()}" />
       <fieldset class="border p-4 mb-4 rounded">
         <legend class="w-auto">Board</legend>
         <div class="form-group">
           <label for="BoardTitle">Board Title:</label>
-          <input id="BoardTitle" type="text" name="title" class="form-control" placeholder="Enter board title">
+          <input id="BoardTitle" type="text" name="title" value="${board.getTitle()}" class="form-control" placeholder="Enter board title">
         </div>
         <div class="form-group">
           <label for="BoardContent">Content:</label>
-          <textarea id="BoardContent" name="content" class="form-control" rows="6" placeholder="Enter your content"></textarea>
+          <textarea id="BoardContent" name="content" class="form-control" rows="6" placeholder="Enter your content">${board.getContent()}</textarea>
         </div>
       </fieldset>
       <fieldset class="border p-4 rounded">

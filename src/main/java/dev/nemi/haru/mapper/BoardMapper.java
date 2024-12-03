@@ -1,6 +1,6 @@
 package dev.nemi.haru.mapper;
 
-import dev.nemi.haru.board.BoardVO;
+import dev.nemi.haru.BoardVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

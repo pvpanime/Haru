@@ -1,5 +1,4 @@
-package dev.nemi.haru.service;
-
+package dev.nemi.haru.service.tasker;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardEditDTO {
-  private long id;
+public class TaskAddDTO {
   private String title;
-  private String content;
+  private String description;
 }

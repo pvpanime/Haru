@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org/DTD mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dev.nemi.haru.mapper.TaskerMapper">
+  <select id="getTasks" resultType="dev.nemi.haru.TaskVO">
+    SELECT *
+    FROM Task
+    ORDER BY end
+  </select>
+  <select id="getTask" resultType="dev.nemi.haru.TaskVO">
+    SELECT *
+    FROM Task
+    WHERE id = #{id}
+  </select>
+  <insert id="addTask" parameterType="dev.nemi.haru.TaskVO">
+    INSERT INTO Task(title, content)
+    VALUES (#{title}, #{content})
+  </insert>
+  <update id="updateTask" parameterType="dev.nemi.haru.TaskVO">
+    UPDATE Task
+    SET title    = IFNULL(#{title}, title),
+        content  = IFNULL(#{content}, content),
+        finished = IFNULL(#{finished}, finished)
+    WHERE id = #{id}
+  </update>
+  <delete id="deleteTask" parameterType="dev.nemi.haru.TaskVO">
+    DELETE FROM Task WHERE id = #{id}
+  </delete>
+</mapper>

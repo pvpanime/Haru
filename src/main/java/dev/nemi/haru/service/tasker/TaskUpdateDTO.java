@@ -1,17 +1,19 @@
-package dev.nemi.haru.service;
+package dev.nemi.haru.service.tasker;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardWriteDTO {
+public class TaskUpdateDTO {
   private String title;
-  private String content;
-  private @Nullable String userid;
+  private String description;
+  private LocalDateTime end;
+  private Integer finished;
 }

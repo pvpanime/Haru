@@ -1,4 +1,4 @@
-<%--@elvariable id="board" type="dev.nemi.haru.service.BoardViewDTO"--%>
+<%--@elvariable id="board" type="dev.nemi.haru.service.board.BoardViewDTO"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -26,6 +26,7 @@
     </div>
   </nav>
 </div>
+<jsp:include page="/WEB-INF/include/bs-script.jsp" />
 <script id="content" type="text/template"><c:out value="${board.getContent()}" /></script>
 <script>
     var board = document.getElementById("board-md");

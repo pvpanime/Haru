@@ -1,9 +1,9 @@
 package dev.nemi.haru.controller;
 
-import dev.nemi.haru.service.BoardEditDTO;
-import dev.nemi.haru.service.BoardService;
-import dev.nemi.haru.service.BoardViewDTO;
-import dev.nemi.haru.service.BoardWriteDTO;
+import dev.nemi.haru.service.board.BoardEditDTO;
+import dev.nemi.haru.service.board.BoardService;
+import dev.nemi.haru.service.board.BoardViewDTO;
+import dev.nemi.haru.service.board.BoardWriteDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONArray;

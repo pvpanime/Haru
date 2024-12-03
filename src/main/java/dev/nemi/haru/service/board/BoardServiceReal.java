@@ -1,6 +1,6 @@
-package dev.nemi.haru.service;
+package dev.nemi.haru.service.board;
 
-import dev.nemi.haru.board.BoardVO;
+import dev.nemi.haru.BoardVO;
 import dev.nemi.haru.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

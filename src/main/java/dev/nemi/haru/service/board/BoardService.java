@@ -1,4 +1,4 @@
-package dev.nemi.haru.service;
+package dev.nemi.haru.service.board;
 
 import java.util.List;
 

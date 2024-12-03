@@ -6,22 +6,22 @@
   <select id="getMaxPages" resultType="long">
     SELECT CEIL(COUNT(*) / #{countPerPage}) FROM Board
   </select>
-  <select id="getBoard" resultType="dev.nemi.haru.board.BoardVO">
+  <select id="getBoard" resultType="dev.nemi.haru.BoardVO">
     SELECT id, title, content, added, updated, userid, status
     FROM Board
     WHERE id = #{id}
   </select>
-  <select id="getBoardListAt" resultType="dev.nemi.haru.board.BoardVO">
+  <select id="getBoardListAt" resultType="dev.nemi.haru.BoardVO">
     SELECT id, title, content, added, updated, userid, status
     FROM Board
     ORDER BY added DESC
     LIMIT #{count} OFFSET #{start}
   </select>
-  <insert id="insert" parameterType="dev.nemi.haru.board.BoardVO">
+  <insert id="insert" parameterType="dev.nemi.haru.BoardVO">
     INSERT INTO Board(id, title, content, userid)
     VALUES (weeb.create_board_id(), #{title}, #{content}, #{userid})
   </insert>
-  <update id="update" parameterType="dev.nemi.haru.board.BoardVO">
+  <update id="update" parameterType="dev.nemi.haru.BoardVO">
     UPDATE Board
     SET title = #{title}, content = #{content}
     WHERE id = #{id}
