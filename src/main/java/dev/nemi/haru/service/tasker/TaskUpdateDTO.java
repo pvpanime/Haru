@@ -19,6 +19,6 @@ public class TaskUpdateDTO {
   @NotNull private long id;
   @NotEmpty private String title;
   @NotEmpty private String content;
-  @FutureOrPresent private LocalDateTime end;
+  @NotNull @FutureOrPresent private LocalDateTime end;
   @Null private Integer finished;
 }

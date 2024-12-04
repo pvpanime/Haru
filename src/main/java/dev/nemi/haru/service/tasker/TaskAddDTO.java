@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,6 +15,6 @@ import java.time.LocalDateTime;
 public class TaskAddDTO {
   @NotEmpty private String title;
   @NotEmpty private String content;
-  @Future private LocalDateTime end;
+  @NotNull @FutureOrPresent private LocalDateTime end;
   @Null private Integer finished;
 }

@@ -46,11 +46,13 @@ public class TaskerController {
 
   @PostMapping("/task/write")
   public String taskerWrite(@Valid TaskAddDTO dto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    log.info("end = {}", dto.getEnd());
     if (bindingResult.hasErrors()) {
       redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
       return "redirect:/task/write";
     }
     log.info(dto);
+    taskerService.addTask(dto);
     return "redirect:/task";
   }
 
@@ -68,7 +70,7 @@ public class TaskerController {
   public String taskerEdit(@Valid TaskUpdateDTO task, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
     if (bindingResult.hasErrors()) {
       redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-      return "redirect:/task/edit" + task.getId();
+      return "redirect:/task/edit/" + task.getId();
     }
     int result = taskerService.updateTask(task);
     return "redirect:/task/view/" + task.getId();

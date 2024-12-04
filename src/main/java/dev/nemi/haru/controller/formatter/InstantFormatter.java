@@ -12,15 +12,13 @@ public class InstantFormatter implements Formatter<Instant> {
 
   @Override
   public @NotNull Instant parse(@NotNull String text, @NotNull Locale locale) {
-    // Parse the text into an Instant
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss", locale)
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm[:ss]", locale)
       .withZone(ZoneId.systemDefault());
     return Instant.from(formatter.parse(text));
   }
 
   @Override
   public @NotNull String print(@NotNull Instant object, @NotNull Locale locale) {
-    // Format the Instant into a string
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss", locale)
       .withZone(ZoneId.systemDefault());
     return formatter.format(object);
