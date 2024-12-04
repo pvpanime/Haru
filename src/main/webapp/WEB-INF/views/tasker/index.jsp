@@ -8,6 +8,12 @@
 </head>
 <body data-bs-theme="dark">
 <jsp:include page="/WEB-INF/include/navbar.jsp"/>
+<div class="text-center py-5">
+  <h1 class="display-3">Task</h1>
+  <div>
+    <a class="btn btn-primary" href="${pageContext.request.contextPath}/task/write">Create New</a>
+  </div>
+</div>
 <div class="container-fluid py-4 row row-cols-3">
   <c:forEach items="${list}" var="item">
     <div class="col">

@@ -3,13 +3,20 @@ package dev.nemi.haru.controller;
 import dev.nemi.haru.service.tasker.TaskUpdateDTO;
 import dev.nemi.haru.service.tasker.TaskViewDTO;
 import dev.nemi.haru.service.tasker.TaskerService;
+import dev.nemi.haru.service.tasker.TaskAddDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 public class TaskerController {
@@ -32,8 +39,23 @@ public class TaskerController {
     return "tasker/view";
   }
 
+  @GetMapping("/task/write")
+  public String taskerWriteView() {
+    return "tasker/write";
+  }
+
+  @PostMapping("/task/write")
+  public String taskerWrite(@Valid TaskAddDTO dto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    if (bindingResult.hasErrors()) {
+      redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+      return "redirect:/task/write";
+    }
+    log.info(dto);
+    return "redirect:/task";
+  }
+
   @GetMapping("/task/edit/{id}")
-  public String taskerEdit(@PathVariable long id, Model model) {
+  public String taskerEditView(@PathVariable long id, Model model) {
     TaskViewDTO task = taskerService.getTask(id);
     if (task == null) {
       return "forward:view404";
@@ -43,7 +65,11 @@ public class TaskerController {
   }
 
   @PostMapping("/task/edit")
-  public String taskerEdit(TaskUpdateDTO task, Model model) {
+  public String taskerEdit(@Valid TaskUpdateDTO task, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    if (bindingResult.hasErrors()) {
+      redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+      return "redirect:/task/edit" + task.getId();
+    }
     int result = taskerService.updateTask(task);
     return "redirect:/task/view/" + task.getId();
   }
