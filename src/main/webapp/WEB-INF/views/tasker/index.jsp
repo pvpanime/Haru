@@ -24,7 +24,7 @@
               <c:out value="${item.getTitle()}"/>
             </div>
             <div class="col-md-auto">
-              <a href="/task/view/${item.getId()}" class="btn btn-sm btn-outline-light p-1">View Detail</a>
+              <a href="/task/view/${item.getId()}" class="btn btn-sm btn-outline-light p-1">View</a>
             </div>
           </div>
         </div>

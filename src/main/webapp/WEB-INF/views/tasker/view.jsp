@@ -15,9 +15,7 @@
           <div class="col h5 my-0">
             <c:out value="${task.getTitle()}"/>
           </div>
-          <div class="col-md-auto">
-            <a href="/task/edit/${task.getId()}" class="btn btn-sm btn-outline-light p-1">Edit</a>
-          </div>
+
         </div>
       </div>
       <div class="card-body">
@@ -30,7 +28,26 @@
         </div>
 <%--      </div>--%>
     </div>
+  <div class="container-fluid py-4">
+    <div class="row justify-content-end gap-2">
+      <a href="/task/edit/${task.getId()}" class="col-auto btn btn-outline-light">Edit</a>
+      <button id="deleteButton" class="col-auto btn btn-danger">Delete</button>
+    </div>
   </div>
+  </div>
+<script>
+  function actionDelete() {
+    const form = document.createElement('form');
+    document.body.appendChild(form);
+    form.action = '/task/delete/${task.getId()}';
+    form.method = 'POST';
+    form.submit();
+  }
+  document.getElementById("deleteButton").addEventListener("click", () => {
+    if (window.confirm("Are you really sure you want to delete this task?"))
+      actionDelete();
+  })
+</script>
 </body>
 <jsp:include page="/WEB-INF/include/bs-script.jsp" />
 </html>

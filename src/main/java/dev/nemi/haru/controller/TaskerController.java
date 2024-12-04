@@ -76,4 +76,10 @@ public class TaskerController {
     return "redirect:/task/view/" + task.getId();
   }
 
+  @PostMapping("/task/delete/{id}")
+  public String taskerDelete(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    taskerService.deleteTask(id);
+    return "redirect:/task";
+  }
+
 }
