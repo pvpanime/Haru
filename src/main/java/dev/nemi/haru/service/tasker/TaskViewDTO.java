@@ -17,5 +17,10 @@ public class TaskViewDTO {
   String content;
   LocalDateTime start;
   LocalDateTime end;
-  int finished;
+//  String end;
+  int status;
+
+  public boolean isExpired() {
+    return status == 0 && end.isBefore(LocalDateTime.now());
+  }
 }

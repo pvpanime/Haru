@@ -7,6 +7,7 @@
   <title>Write Board!</title>
 </head>
 <body data-bs-theme="dark">
+<jsp:include page="/WEB-INF/include/navbar.jsp"/>
 <div class="container py-5">
   <main>
     <h1 class="text-center mb-4">Write Board!</h1>

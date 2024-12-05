@@ -10,6 +10,7 @@
       <set>
         <bean class="dev.nemi.haru.controller.formatter.LDTFormatter" />
         <bean class="dev.nemi.haru.controller.formatter.InstantFormatter" />
+        <bean class="dev.nemi.haru.controller.formatter.CBFormatter" />
       </set>
     </property>
   </bean>

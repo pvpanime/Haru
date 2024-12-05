@@ -16,7 +16,7 @@ public class LDTFormatter implements Formatter<LocalDateTime> {
 
   @Override
   public @NotNull String print(@NotNull LocalDateTime object, @NotNull Locale locale) {
-    return DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm", locale).format(object);
+    return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", locale).format(object);
   }
 
 }

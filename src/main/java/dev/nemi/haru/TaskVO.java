@@ -17,5 +17,5 @@ public class TaskVO {
   String content;
   LocalDateTime start;
   LocalDateTime end;
-  int finished;
+  int status;
 }

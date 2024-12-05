@@ -7,6 +7,7 @@
   <title>Tasker!</title>
 </head>
 <body data-bs-theme="dark">
+<jsp:include page="/WEB-INF/include/navbar.jsp"/>
 <div class="container py-5">
   <main>
     <h1 class="text-center mb-4">Tasker</h1>
@@ -23,8 +24,21 @@
         </div>
       </fieldset>
       <fieldset class="border p-4 mb-4 rounded">
-        <label for="EndDateTime">Due to</label>
-        <input id="EndDateTime" type="datetime-local" name="end" class="form-control" placeholder="Date here">
+        <div class="py-2">
+          <label for="EndDateTime">Due to</label>
+          <input id="EndDateTime" type="datetime-local" name="end" class="form-control" placeholder="Date here">
+        </div>
+        <div class="py-2">
+          <div>Status</div>
+          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="status" id="btnradio1" value="0" autocomplete="off" checked>
+            <label class="btn btn-outline-secondary" for="btnradio1">In Progress</label>
+            <input type="radio" class="btn-check" name="status" id="btnradio2" value="1" autocomplete="off">
+            <label class="btn btn-outline-success" for="btnradio2">Finished</label>
+            <input type="radio" class="btn-check" name="status" id="btnradio3" value="-1" autocomplete="off">
+            <label class="btn btn-outline-danger" for="btnradio3">Dropped</label>
+          </div>
+        </div>
       </fieldset>
       <fieldset class="border p-4 rounded">
         <button type="submit" class="btn btn-primary btn-block">Publish</button>

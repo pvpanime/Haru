@@ -14,14 +14,15 @@
     WHERE id = #{id}
   </select>
   <insert id="addTask" parameterType="dev.nemi.haru.TaskVO">
-    INSERT INTO Task(title, content)
-    VALUES (#{title}, #{content})
+    INSERT INTO Task(title, content, status)
+    VALUES (#{title}, #{content}, #{status})
   </insert>
   <update id="updateTask" parameterType="dev.nemi.haru.TaskVO">
     UPDATE Task
     SET title    = IFNULL(#{title}, title),
         content  = IFNULL(#{content}, content),
-        finished = IFNULL(#{finished}, finished)
+        end = IFNULL(#{end}, end),
+        status = IFNULL(#{status}, status)
     WHERE id = #{id}
   </update>
   <delete id="deleteTask" parameterType="dev.nemi.haru.TaskVO">

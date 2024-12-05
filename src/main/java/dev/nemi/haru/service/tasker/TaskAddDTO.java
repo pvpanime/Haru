@@ -15,6 +15,6 @@ import java.time.LocalDateTime;
 public class TaskAddDTO {
   @NotEmpty private String title;
   @NotEmpty private String content;
-  @NotNull @FutureOrPresent private LocalDateTime end;
-  @Null private Integer finished;
+  @NotNull  private LocalDateTime end;
+  private Integer status;
 }

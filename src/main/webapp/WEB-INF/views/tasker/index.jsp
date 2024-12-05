@@ -15,26 +15,40 @@
   </div>
 </div>
 <div class="container-fluid py-4 row row-cols-3">
-  <c:forEach items="${list}" var="item">
-    <div class="col">
-      <div class="card" data-task-id="${item.getId()}">
+  <c:forEach items="${list}" var="task">
+    <div class="col pb-4">
+      <div class="card" data-task-id="${task.getId()}">
         <div class="card-header">
           <div class="row justify-content-between">
-            <div class="col h5 my-0">
-              <c:out value="${item.getTitle()}"/>
+            <div class="col my-0" style="align-content: center">
+              <span class="h5">
+                <c:out value="${task.getTitle()}"/>
+              </span>
+              <c:if test="${task.isExpired()}">
+                <span class="badge text-bg-warning" style="vertical-align: text-top">Expired</span>
+              </c:if>
+              <c:choose>
+                <c:when test="${task.getStatus() == 1}">
+                  <span class="badge text-bg-success" style="vertical-align: text-top">Finished</span>
+                </c:when>
+                <c:when test="${task.getStatus() == -1}">
+                  <span class="badge text-bg-danger" style="vertical-align: text-top">Dropped</span>
+                </c:when>
+                <c:otherwise />
+              </c:choose>
             </div>
             <div class="col-md-auto">
-              <a href="/task/view/${item.getId()}" class="btn btn-sm btn-outline-light p-1">View</a>
+              <a href="/task/view/${task.getId()}" class="btn btn-sm btn-outline-light p-1">View</a>
             </div>
           </div>
         </div>
         <div class="card-body">
           <div>
-            <c:out value="${item.getContent()}"/>
+            <c:out value="${task.getContent()}"/>
           </div>
         </div>
         <div class="card-footer">
-          Due to <c:out value="${item.getEnd()}"/>
+            Due to <span class="fw-bold"><c:out value="${task.getEnd()}"/></span>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@
   <title>Board</title>
 </head>
 <body data-bs-theme="dark">
+<jsp:include page="/WEB-INF/include/navbar.jsp"/>
 <div class="container py-4">
   <main>
     <div class="jumbotron bg-dark text-light text-center py-5">
