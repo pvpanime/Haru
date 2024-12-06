@@ -1,5 +1,7 @@
 package dev.nemi.haru.controller;
 
+import dev.nemi.haru.service.tasker.Tasker404;
+import dev.nemi.haru.service.tasker.TaskerBadRequest;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,14 @@ public class Taurus {
     return ResponseEntity.status(status).contentType(MediaType.parseMediaType(mime)).body("Bad Request");
   }
 
-  @ExceptionHandler(NoHandlerFoundException.class)
+  @ExceptionHandler(value = { NoHandlerFoundException.class, TaskerBadRequest.class })
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public String badRequest() {
+    return "view400";
+  }
+
+
+  @ExceptionHandler(value = { Tasker404.class })
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public String notFound() {
     return "view404";

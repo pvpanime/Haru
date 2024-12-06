@@ -1,23 +1,25 @@
-package dev.nemi.haru.service;
+package dev.nemi.haru.service.tasker;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SlicerDTO {
+public class TaskRequestDTO {
 
   public static final int DEFAULT_SIZE = 30;
   public static final String DEFAULT_SIZE_STR = DEFAULT_SIZE + "";
-  public static final SlicerDTO DEFAULT = SlicerDTO.builder().build();
+  public static final TaskRequestDTO DEFAULT = TaskRequestDTO.builder().build();
 
   @Builder.Default
   @Min(value = 1)
@@ -30,11 +32,29 @@ public class SlicerDTO {
   @Positive
   private int size = DEFAULT_SIZE;
 
+
+
+  
+  private String[] searchFor;
+
+  @Builder.Default
+  private String search = "";
+
+  @Nullable
+  private Integer status;
+  private LocalDateTime rangeStart;
+  private LocalDateTime rangeEnd;
+  
+  
+  
+  
+  
+
   public long getSkip() {
     return (page - 1) * size;
   }
 
-  public String getSearchParams() {
+  public String getQuestion() {
     StringBuilder sb = new StringBuilder();
     if (page != 1) sb.append("&page=").append(page);
     if (size != DEFAULT_SIZE) sb.append("&size=").append(size);

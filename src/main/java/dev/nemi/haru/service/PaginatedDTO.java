@@ -1,5 +1,6 @@
 package dev.nemi.haru.service;
 
+import dev.nemi.haru.service.tasker.TaskRequestDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -30,9 +31,9 @@ public class PaginatedDTO<Tp> {
   private List<Tp> list;
 
   @Builder(builderMethodName = "withAll")
-  public PaginatedDTO(SlicerDTO slicer, List<Tp> ls, long total) {
-    this.page = slicer.getPage();
-    this.size = slicer.getSize();
+  public PaginatedDTO(TaskRequestDTO requestDTO, List<Tp> ls, long total) {
+    this.page = requestDTO.getPage();
+    this.size = requestDTO.getSize();
     this.total = total;
     this.list = ls;
     this.last = (long) Math.ceil((double)total/size);
@@ -63,10 +64,13 @@ public class PaginatedDTO<Tp> {
   public String usePage(long pg) {
     StringBuilder sb = new StringBuilder();
     if (pg > 1) sb.append("&page=").append(pg);
-    if (size != SlicerDTO.DEFAULT_SIZE) sb.append("&size=").append(size);
+    if (size != TaskRequestDTO.DEFAULT_SIZE) sb.append("&size=").append(size);
     String s = sb.toString();
     return s.isEmpty() ? "" : s.replaceFirst("&", "?");
-//    if (size == SlicerDTO.DEFAULT_SIZE) return "";
-//    return "&size="+size;
+
+  }
+
+  public String usePage() {
+    return usePage(this.page);
   }
 }

@@ -3,23 +3,41 @@
   PUBLIC "-//mybatis.org/DTD mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="dev.nemi.haru.mapper.TaskerMapper">
-  <select id="getTasks" resultType="dev.nemi.haru.TaskVO">
+  <sql id="search">
+    <where>
+      <if test="search != null and search.length > 0 and searchFor != null and searchFor.length > 0">
+        <foreach collection="searchFor" item="sf" open="(" close=")" separator="OR">
+          <if test="sf == 't'.toString()">
+            title LIKE CONCAT('%', #{search} '%')
+          </if>
+          <if test="sf == 'c'.toString()">
+            content LIKE CONCAT('%', #{search}, '%')
+          </if>
+        </foreach>
+      </if>
+      <if test="rangeStart != null and rangeEnd != null">
+        <trim prefix="and">
+          `end` BETWEEN ${rangeStart} AND #{rangeEnd}
+        </trim>
+      </if>
+      <if test="status != null">
+        <trim prefix="and">
+          `status` = ${status}
+        </trim>
+      </if>
+    </where>
+  </sql>
+  <select id="getTasksFor" resultType="dev.nemi.haru.TaskVO">
     SELECT *
     FROM Task
-    ORDER BY end
-  </select>
-  <select id="getTasksAt" resultType="dev.nemi.haru.TaskVO">
-    SELECT *
-    FROM Task
+    <include refid="search"/>
     ORDER BY end
     LIMIT #{size} OFFSET #{skip}
   </select>
-  <select id="getTaskCount">
-    SELECT COUNT(*) FROM Task
-  </select>
-  <select id="getMaxPages" resultType="long">
-    SELECT CEIL(COUNT(*) / #{size})
+  <select id="getTaskCountFor">
+    SELECT COUNT(id)
     FROM Task
+    <include refid="search" />
   </select>
   <select id="getTask" resultType="dev.nemi.haru.TaskVO">
     SELECT *
@@ -32,13 +50,15 @@
   </insert>
   <update id="updateTask" parameterType="dev.nemi.haru.TaskVO">
     UPDATE Task
-    SET title    = IFNULL(#{title}, title),
-        content  = IFNULL(#{content}, content),
-        end = IFNULL(#{end}, end),
-        status = IFNULL(#{status}, status)
+    SET title   = IFNULL(#{title}, title),
+        content = IFNULL(#{content}, content),
+        end     = IFNULL(#{end}, end),
+        status  = IFNULL(#{status}, status)
     WHERE id = #{id}
   </update>
   <delete id="deleteTask" parameterType="dev.nemi.haru.TaskVO">
-    DELETE FROM Task WHERE id = #{id}
+    DELETE
+    FROM Task
+    WHERE id = #{id}
   </delete>
 </mapper>

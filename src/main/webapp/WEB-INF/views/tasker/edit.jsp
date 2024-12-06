@@ -13,6 +13,8 @@
     <h1 class="text-center mb-4">Tasker</h1>
     <form action="${pageContext.request.contextPath}/task/edit" method="post">
       <input type="hidden" name="id" value='<c:out value="${task.getId()}" />'/>
+      <input type="hidden" name="page" value='<c:out value="${requestDTO.page}" />'/>
+      <input type="hidden" name="size" value='<c:out value="${requestDTO.size}" />'/>
       <fieldset class="border p-4 mb-4 rounded">
         <legend class="w-auto">Edit</legend>
         <div class="form-group">

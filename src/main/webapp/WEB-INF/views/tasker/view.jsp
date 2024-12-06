@@ -9,7 +9,7 @@
 <body data-bs-theme="dark">
 <jsp:include page="/WEB-INF/include/navbar.jsp"/>
 <div class="container-fluid py-4">
-  <div class="card" data-task-id="${task.getId()}">
+  <div class="card" data-task-id="${task.id}">
     <div class="card-header">
       <div class="row justify-content-between">
         <div class="col my-0">
@@ -42,17 +42,26 @@
     </div>
   </div>
   <div class="container-fluid py-4">
-    <div class="row justify-content-start gap-2">
-      <a href="/task/edit/${task.getId()}" class="col-auto btn btn-outline-light">Edit</a>
+    <div class="row justify-content-between gap-2">
+      <div class="col-auto">
+        <a href="/task${requestDTO.question}" class="col-auto btn btn-secondary">Back to List</a>
+        <a href="/task/edit/${task.id}${requestDTO.question}" class="col-auto btn btn-outline-light">Edit</a>
+      </div>
       <button id="deleteButton" class="col-auto btn btn-danger">Delete</button>
+      <form id="HiddenForm">
+        <input type="hidden" name="page" value="${requestDTO.page}" />
+        <input type="hidden" name="size" value="${requestDTO.size}" />
+      </form>
     </div>
   </div>
 </div>
 <script>
   function actionDelete() {
-    const form = document.createElement('form');
-    document.body.appendChild(form);
-    form.action = '/task/delete/${task.getId()}';
+    // const form = document.createElement('form');
+    // document.body.appendChild(form);
+
+    const form = document.querySelector('#HiddenForm');
+    form.action = '/task/delete/${task.id}';
     form.method = 'POST';
     form.submit();
   }

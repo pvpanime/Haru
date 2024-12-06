@@ -10,8 +10,48 @@
 <jsp:include page="/WEB-INF/include/navbar.jsp"/>
 <div class="text-center py-5">
   <h1 class="display-3">Task</h1>
-  <div>
-    <a class="btn btn-primary" href="${pageContext.request.contextPath}/task/write">Create New</a>
+  <div class="row justify-content-center">
+    <a class="col-auto btn btn-primary" href="${pageContext.request.contextPath}/task/write">Create New</a>
+    <button id="SearchButton" type="button" class="btn btn-light col-auto" data-bs-toggle="collapse" data-bs-target="#SearchGroup">Search</button>
+  </div>
+</div>
+<div class="collapse" id="SearchGroup">
+  <div class="container">
+    <div class="card card-body">
+      <h3>Search</h3>
+      <form id="SearchForm" action="${pageContext.request.contextPath}/task" method="GET">
+        <div class="py-2">
+          <div>Status</div>
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="status" id="status-none" value="" checked autocomplete="off">
+            <label class="btn btn-outline-secondary" for="status-none">None</label>
+            <input type="radio" class="btn-check" name="status" id="status-in-progress" value='<c:out value="0" />' autocomplete="off">
+            <label class="btn btn-outline-light" for="status-in-progress">In Progress</label>
+            <input type="radio" class="btn-check" name="status" id="status-finished" value='<c:out value="1" />' autocomplete="off">
+            <label class="btn btn-outline-success" for="status-finished">Finished</label>
+            <input type="radio" class="btn-check" name="status" id="status-dropped" value='<c:out value="-1" />' autocomplete="off">
+            <label class="btn btn-outline-danger" for="status-dropped">Dropped</label>
+          </div>
+        </div>
+        <div class="py-2">
+          <div>Text</div>
+          <div class="input-group">
+              <input type="checkbox" class="btn-check" name="searchFor" id="UseTitle" value="t" autocomplete="off">
+              <label class="btn btn-outline-light" for="UseTitle">Title</label>
+              <input type="checkbox" class="btn-check" name="searchFor" id="UseContent" value="c" autocomplete="off">
+              <label class="btn btn-outline-light" for="UseContent">Content</label>
+            <input type="text" class="form-control" name="search" placeholder="Search..." autocomplete="off">
+          </div>
+        </div>
+        <div class="py-2">
+          <div>Due Date range From:</div>
+          <input type="datetime-local" class="form-control" name="rangeStart" id="rangeStart" autocomplete="off">
+          <div>To:</div>
+          <input type="datetime-local" class="form-control" name="rangeEnd" id="rangeEnd" autocomplete="off">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Search!">
+      </form>
+    </div>
   </div>
 </div>
 <div class="container-fluid py-4 row row-cols-3">
@@ -38,7 +78,7 @@
               </c:choose>
             </div>
             <div class="col-md-auto">
-              <a href="/task/view/${task.id}" class="btn btn-sm btn-outline-light p-1">View</a>
+              <a href="/task/view/${task.id}${dto.usePage()}" class="btn btn-sm btn-outline-light p-1">View</a>
             </div>
           </div>
         </div>
@@ -91,6 +131,33 @@
     </ul>
   </nav>
 </div>
+<script>
+  const f = document.getElementById("SearchForm");
+  f.addEventListener("submit", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const fd = new FormData(f);
+
+    const realForm = document.createElement("form");
+
+    let useSearch = !!fd.get("search");
+
+    for (const [k, v] of fd.entries()) {
+      if (!v) continue;
+      if (!useSearch && (k === 'searchFor')) continue;
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = k;
+      input.value = v;
+      realForm.appendChild(input);
+    }
+
+    document.body.appendChild(realForm);
+    realForm.method = "GET";
+    realForm.action = "${pageContext.request.contextPath}/task";
+    realForm.submit();
+  })
+</script>
 </body>
 <jsp:include page="/WEB-INF/include/bs-script.jsp"/>
 </html>
