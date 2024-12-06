@@ -8,6 +8,19 @@
     FROM Task
     ORDER BY end
   </select>
+  <select id="getTasksAt" resultType="dev.nemi.haru.TaskVO">
+    SELECT *
+    FROM Task
+    ORDER BY end
+    LIMIT #{size} OFFSET #{skip}
+  </select>
+  <select id="getTaskCount">
+    SELECT COUNT(*) FROM Task
+  </select>
+  <select id="getMaxPages" resultType="long">
+    SELECT CEIL(COUNT(*) / #{size})
+    FROM Task
+  </select>
   <select id="getTask" resultType="dev.nemi.haru.TaskVO">
     SELECT *
     FROM Task

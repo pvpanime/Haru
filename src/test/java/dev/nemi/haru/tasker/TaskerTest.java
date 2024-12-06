@@ -1,9 +1,8 @@
 package dev.nemi.haru.tasker;
 
-import dev.nemi.haru.service.tasker.TaskAddDTO;
-import dev.nemi.haru.service.tasker.TaskUpdateDTO;
-import dev.nemi.haru.service.tasker.TaskViewDTO;
-import dev.nemi.haru.service.tasker.TaskerService;
+import dev.nemi.haru.service.PaginatedDTO;
+import dev.nemi.haru.service.SlicerDTO;
+import dev.nemi.haru.service.tasker.*;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,17 +21,6 @@ public class TaskerTest {
 
   @Autowired
   TaskerService taskerService;
-
-  @Test
-  public void getTaskTest() {
-    List<TaskViewDTO> taskList = taskerService.getTasks();
-    Assertions.assertNotNull(taskList);
-    log.info(taskList);
-
-    TaskViewDTO task = taskList.get(1);
-    Assertions.assertNotNull(task);
-    log.info(task);
-  }
 
   @Test
   public void writeTaskTest() {
@@ -54,6 +42,24 @@ public class TaskerTest {
       .end(LocalDateTime.now().plusDays(3))
       .build()
     );
+  }
+
+  @Test
+  public void countTest() {
+    long count = taskerService.getTaskCount();
+    log.info(count);
+  }
+
+  @Test
+  public void maxPageTest() {
+    long maxPages = taskerService.getMaxPages(10);
+    log.info(maxPages);
+  }
+
+  @Test
+  public void paginationTest() {
+    PaginatedDTO<TaskViewDTO> ls = taskerService.getTasksPaged(SlicerDTO.builder().page(1).size(10).build());
+    log.info(ls);
   }
 
 }

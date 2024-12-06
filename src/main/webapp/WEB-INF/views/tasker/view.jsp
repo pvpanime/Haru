@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="container-fluid py-4">
-    <div class="row justify-content-end gap-2">
+    <div class="row justify-content-start gap-2">
       <a href="/task/edit/${task.getId()}" class="col-auto btn btn-outline-light">Edit</a>
       <button id="deleteButton" class="col-auto btn btn-danger">Delete</button>
     </div>
