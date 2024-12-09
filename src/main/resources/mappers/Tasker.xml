@@ -20,9 +20,9 @@
           `end` BETWEEN ${rangeStart} AND #{rangeEnd}
         </trim>
       </if>
-      <if test="status != null">
+      <if test="matchStatus != null">
         <trim prefix="and">
-          `status` = ${status}
+          `status` = ${matchStatus}
         </trim>
       </if>
     </where>
@@ -45,7 +45,7 @@
     WHERE id = #{id}
   </select>
   <insert id="addTask" parameterType="dev.nemi.haru.TaskVO">
-    INSERT INTO Task(title, content, status)
+    INSERT INTO Task(title, content, `status`)
     VALUES (#{title}, #{content}, #{status})
   </insert>
   <update id="updateTask" parameterType="dev.nemi.haru.TaskVO">
@@ -53,7 +53,7 @@
     SET title   = IFNULL(#{title}, title),
         content = IFNULL(#{content}, content),
         end     = IFNULL(#{end}, end),
-        status  = IFNULL(#{status}, status)
+        `status`  = IFNULL(#{status}, `status`)
     WHERE id = #{id}
   </update>
   <delete id="deleteTask" parameterType="dev.nemi.haru.TaskVO">

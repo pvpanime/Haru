@@ -39,7 +39,7 @@ public class TaskRequestDTO {
   private String search = "";
 
   @Nullable
-  private Integer status;
+  private Integer matchStatus;
   private LocalDateTime rangeStart;
   private LocalDateTime rangeEnd;
   
@@ -76,8 +76,8 @@ public class TaskRequestDTO {
     if (search != null && !search.isEmpty()) {
       sb.append("&search=").append(URLEncoder.encode(search, "UTF-8"));
     }
-    if (status != null) {
-      sb.append("&status=").append(status);
+    if (matchStatus != null) {
+      sb.append("&matchStatus=").append(matchStatus);
     }
     if (rangeStart != null && rangeEnd != null) {
       sb.append("&rangeStart=").append(rangeStart);

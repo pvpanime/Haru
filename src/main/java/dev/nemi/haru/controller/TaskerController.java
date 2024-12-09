@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.net.URLEncoder;
 
 @Log4j2
 @Controller
@@ -107,8 +106,8 @@ public class TaskerController {
     if (search != null && !search.isEmpty()) {
       redirectAttributes.addAttribute("search", search);
     }
-    if (requestDTO.getStatus() != null) {
-      redirectAttributes.addAttribute("status", requestDTO.getStatus());
+    if (requestDTO.getMatchStatus() != null) {
+      redirectAttributes.addAttribute("status", requestDTO.getMatchStatus());
     }
     if (requestDTO.getRangeStart() != null && requestDTO.getRangeEnd() != null) {
       redirectAttributes.addAttribute("rangeStart", requestDTO.getRangeStart());
@@ -128,15 +127,17 @@ public class TaskerController {
       return "redirect:/task/edit/" + task.getId() + requestDTO.usePage();
     }
     int result = taskerService.updateTask(task);
-    injectAttributes(requestDTO, redirectAttributes);
-    return "redirect:/task/view/" + task.getId();
+    String useSearch = requestDTO.usePage();
+    if (useSearch != null && !useSearch.isEmpty()) useSearch = "?" + useSearch;
+    return "redirect:/task/view/" + task.getId() + useSearch;
   }
 
   @PostMapping("/task/delete/{id}")
   public String taskerDelete(@PathVariable long id, TaskRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
     taskerService.deleteTask(id);
-    injectAttributes(requestDTO, redirectAttributes);
-    return "redirect:/task";
+    String useSearch = requestDTO.usePage();
+    if (useSearch != null && !useSearch.isEmpty()) useSearch = "?" + useSearch;
+    return "redirect:/task" + useSearch;
   }
 
 }

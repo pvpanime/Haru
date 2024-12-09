@@ -23,13 +23,13 @@
         <div class="py-2">
           <div>Status</div>
           <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="status" id="status-none" value="" ${requestDTO.status == null ? "checked" : ""} autocomplete="off">
+            <input type="radio" class="btn-check" name="matchStatus" id="status-none" value="" ${requestDTO.matchStatus == null ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-secondary" for="status-none">None</label>
-            <input type="radio" class="btn-check" name="status" id="status-in-progress" value='<c:out value="0" />' ${requestDTO.status == 0 ? "checked" : ""} autocomplete="off">
+            <input type="radio" class="btn-check" name="matchStatus" id="status-in-progress" value='<c:out value="0" />' ${requestDTO.matchStatus == 0 ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-light" for="status-in-progress">In Progress</label>
-            <input type="radio" class="btn-check" name="status" id="status-finished" value='<c:out value="1" />' ${requestDTO.status == 1 ? "checked" : ""} autocomplete="off">
+            <input type="radio" class="btn-check" name="matchStatus" id="status-finished" value='<c:out value="1" />' ${requestDTO.matchStatus == 1 ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-success" for="status-finished">Finished</label>
-            <input type="radio" class="btn-check" name="status" id="status-dropped" value='<c:out value="-1" />' ${requestDTO.status == -1 ? "checked" : ""} autocomplete="off">
+            <input type="radio" class="btn-check" name="matchStatus" id="status-dropped" value='<c:out value="-1" />' ${requestDTO.matchStatus == -1 ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-danger" for="status-dropped">Dropped</label>
           </div>
         </div>
