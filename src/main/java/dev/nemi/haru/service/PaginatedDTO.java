@@ -61,16 +61,4 @@ public class PaginatedDTO<Tp> {
     this.next = this.end * this.size < total;
   }
 
-  public String usePage(long pg) {
-    StringBuilder sb = new StringBuilder();
-    if (pg > 1) sb.append("&page=").append(pg);
-    if (size != TaskRequestDTO.DEFAULT_SIZE) sb.append("&size=").append(size);
-    String s = sb.toString();
-    return s.isEmpty() ? "" : s.replaceFirst("&", "?");
-
-  }
-
-  public String usePage() {
-    return usePage(this.page);
-  }
 }

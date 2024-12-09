@@ -23,24 +23,24 @@
         <div class="py-2">
           <div>Status</div>
           <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="status" id="status-none" value="" checked autocomplete="off">
+            <input type="radio" class="btn-check" name="status" id="status-none" value="" ${requestDTO.status == null ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-secondary" for="status-none">None</label>
-            <input type="radio" class="btn-check" name="status" id="status-in-progress" value='<c:out value="0" />' autocomplete="off">
+            <input type="radio" class="btn-check" name="status" id="status-in-progress" value='<c:out value="0" />' ${requestDTO.status == 0 ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-light" for="status-in-progress">In Progress</label>
-            <input type="radio" class="btn-check" name="status" id="status-finished" value='<c:out value="1" />' autocomplete="off">
+            <input type="radio" class="btn-check" name="status" id="status-finished" value='<c:out value="1" />' ${requestDTO.status == 1 ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-success" for="status-finished">Finished</label>
-            <input type="radio" class="btn-check" name="status" id="status-dropped" value='<c:out value="-1" />' autocomplete="off">
+            <input type="radio" class="btn-check" name="status" id="status-dropped" value='<c:out value="-1" />' ${requestDTO.status == -1 ? "checked" : ""} autocomplete="off">
             <label class="btn btn-outline-danger" for="status-dropped">Dropped</label>
           </div>
         </div>
         <div class="py-2">
           <div>Text</div>
           <div class="input-group">
-              <input type="checkbox" class="btn-check" name="searchFor" id="UseTitle" value="t" autocomplete="off">
+              <input type="checkbox" class="btn-check" name="searchFor" id="UseTitle" value="t" ${requestDTO.isSearchFor("t") ? "checked" : ""} autocomplete="off">
               <label class="btn btn-outline-light" for="UseTitle">Title</label>
-              <input type="checkbox" class="btn-check" name="searchFor" id="UseContent" value="c" autocomplete="off">
+              <input type="checkbox" class="btn-check" name="searchFor" id="UseContent" value="c" ${requestDTO.isSearchFor("c") ? "checked" : ""} autocomplete="off">
               <label class="btn btn-outline-light" for="UseContent">Content</label>
-            <input type="text" class="form-control" name="search" placeholder="Search..." autocomplete="off">
+            <input type="text" class="form-control" name="search" placeholder="Search..." value='<c:out value="${requestDTO.search != null ? requestDTO.search : \"\"}" />' autocomplete="off">
           </div>
         </div>
         <div class="py-2">
@@ -49,7 +49,12 @@
           <div>To:</div>
           <input type="datetime-local" class="form-control" name="rangeEnd" id="rangeEnd" autocomplete="off">
         </div>
-        <input type="submit" class="btn btn-primary" value="Search!">
+        <div class="container">
+          <div class="row justify-content-between">
+            <input type="submit" class="btn btn-primary col-auto" value="Search!">
+            <button class="btn btn-danger col-auto">Reset Search</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -78,7 +83,7 @@
               </c:choose>
             </div>
             <div class="col-md-auto">
-              <a href="/task/view/${task.id}${dto.usePage()}" class="btn btn-sm btn-outline-light p-1">View</a>
+              <a href="/task/view/${task.id}${requestDTO.usePage()}" class="btn btn-sm btn-outline-light p-1">View</a>
             </div>
           </div>
         </div>
@@ -99,7 +104,7 @@
     <ul class="pagination justify-content-center">
       <c:if test="${dto.start > 1}">
         <li class="page-item">
-          <a class="page-link" href="${pageContext.request.contextPath}/task${dto.usePage(1)}">
+          <a class="page-link" href="${pageContext.request.contextPath}/task${requestDTO.usePage(1)}">
             1
           </a>
         </li>
@@ -111,7 +116,7 @@
       </c:if>
       <c:forEach begin="${dto.start}" end="${dto.end}" var="pgIndex">
         <li class="page-item ${dto.page == pgIndex? "active" : ""}">
-          <a class="page-link" href="/task${dto.usePage(pgIndex)}">
+          <a class="page-link" href="/task${requestDTO.usePage(pgIndex)}">
             <c:out value="${pgIndex}"/>
           </a>
         </li>
@@ -123,7 +128,7 @@
           </a>
         </li>
         <li class="page-item">
-          <a class="page-link" href="/task${dto.usePage(dto.last)}">
+          <a class="page-link" href="/task${requestDTO.usePage(dto.last)}">
             <c:out value="${dto.last}"/>
           </a>
         </li>

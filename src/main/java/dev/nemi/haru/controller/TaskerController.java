@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.net.URLEncoder;
 
 @Log4j2
 @Controller
@@ -25,7 +26,10 @@ public class TaskerController {
   private final TaskerService taskerService;
 
   @GetMapping("/task")
-  public String index(Model model, @Valid TaskRequestDTO requestDTO, BindingResult bindingResult) {
+  public String index(
+    @Valid @ModelAttribute("requestDTO") TaskRequestDTO requestDTO,
+    BindingResult bindingResult,
+    Model model) {
     if (bindingResult.hasErrors()) {
       for (FieldError fieldError : bindingResult.getFieldErrors()) {
         log.warn(fieldError.toString());
@@ -33,9 +37,9 @@ public class TaskerController {
       return "redirect:/task";
     }
 
-    log.info(requestDTO);
     PaginatedDTO<TaskViewDTO> tasksSlice = taskerService.getTasksFor(requestDTO);
     model.addAttribute("dto", tasksSlice);
+    log.info(tasksSlice);
     return "tasker/index";
   }
 
@@ -86,37 +90,52 @@ public class TaskerController {
     if (requestBR.hasErrors()) {
       return "redirect:/task/edit/" + id;
     }
-
     model.addAttribute("task", task);
     return "tasker/edit";
   }
 
+  public void injectAttributes(TaskRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
+    if (requestDTO.getPage() != 1)
+      redirectAttributes.addAttribute("page", requestDTO.getPage());
+    if (requestDTO.getSize() != TaskRequestDTO.DEFAULT_SIZE)
+      redirectAttributes.addAttribute("size", requestDTO.getSize());
+    String[] searchFor = requestDTO.getSearchFor();
+    if (searchFor != null) {
+        redirectAttributes.addAttribute("searchFor", searchFor);
+    }
+    String search = requestDTO.getSearch();
+    if (search != null && !search.isEmpty()) {
+      redirectAttributes.addAttribute("search", search);
+    }
+    if (requestDTO.getStatus() != null) {
+      redirectAttributes.addAttribute("status", requestDTO.getStatus());
+    }
+    if (requestDTO.getRangeStart() != null && requestDTO.getRangeEnd() != null) {
+      redirectAttributes.addAttribute("rangeStart", requestDTO.getRangeStart());
+      redirectAttributes.addAttribute("rangeEnd", requestDTO.getRangeEnd());
+    }
+  }
+
   @PostMapping("/task/edit")
   public String taskerEdit(
-    @Valid TaskRequestDTO requestDTO,
-    BindingResult requestBR,
+    TaskRequestDTO requestDTO,
     @Valid TaskUpdateDTO task,
     BindingResult taskBR,
     RedirectAttributes redirectAttributes
   ) {
-    if (requestBR.hasErrors()) {
-      return "redirect:/task/edit/" + task.getId();
-    }
     if (taskBR.hasErrors()) {
       redirectAttributes.addFlashAttribute("errors", taskBR.getAllErrors());
-      return "redirect:/task/edit/" + task.getId() + requestDTO.getQuestion();
+      return "redirect:/task/edit/" + task.getId() + requestDTO.usePage();
     }
     int result = taskerService.updateTask(task);
-    redirectAttributes.addAttribute("page", requestDTO.getPage());
-    redirectAttributes.addAttribute("size", requestDTO.getSize());
+    injectAttributes(requestDTO, redirectAttributes);
     return "redirect:/task/view/" + task.getId();
   }
 
   @PostMapping("/task/delete/{id}")
   public String taskerDelete(@PathVariable long id, TaskRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
     taskerService.deleteTask(id);
-    redirectAttributes.addAttribute("page", requestDTO.getPage());
-    redirectAttributes.addAttribute("size", requestDTO.getSize());
+    injectAttributes(requestDTO, redirectAttributes);
     return "redirect:/task";
   }
 

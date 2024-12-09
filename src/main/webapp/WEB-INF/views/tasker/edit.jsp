@@ -11,10 +11,10 @@
 <div class="container py-5">
   <main>
     <h1 class="text-center mb-4">Tasker</h1>
-    <form action="${pageContext.request.contextPath}/task/edit" method="post">
+    <form id="MainForm" action="${pageContext.request.contextPath}/task/edit" method="post">
       <input type="hidden" name="id" value='<c:out value="${task.getId()}" />'/>
-      <input type="hidden" name="page" value='<c:out value="${requestDTO.page}" />'/>
-      <input type="hidden" name="size" value='<c:out value="${requestDTO.size}" />'/>
+<%--      <input type="hidden" name="page" value='<c:out value="${requestDTO.page}" />'/>--%>
+<%--      <input type="hidden" name="size" value='<c:out value="${requestDTO.size}" />'/>--%>
       <fieldset class="border p-4 mb-4 rounded">
         <legend class="w-auto">Edit</legend>
         <div class="form-group">
@@ -62,5 +62,37 @@
   </c:if>
 </div>
 <jsp:include page="/WEB-INF/include/bs-script.jsp"/>
+<script id="RequestPreserve" type="application/x-www-form-urlencoded"><c:out value="${requestDTO.usePage()}" /></script>
+<script>
+
+  function hide(name, value) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+  }
+
+  const form = document.getElementById('MainForm');
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const requestPreserved = document.getElementById('RequestPreserve').innerText.replace(/&amp;/g, '&');
+    if (requestPreserved) {
+      const usp = new URLSearchParams(requestPreserved);
+
+      for (const [name, value] of usp.entries()) {
+        form.append(hide(name, value));
+      }
+    }
+
+
+    const formData = new FormData(form);
+    console.log([...formData.entries()]);
+
+    form.submit();
+  })
+</script>
 </body>
 </html>

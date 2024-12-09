@@ -44,8 +44,8 @@
   <div class="container-fluid py-4">
     <div class="row justify-content-between gap-2">
       <div class="col-auto">
-        <a href="/task${requestDTO.question}" class="col-auto btn btn-secondary">Back to List</a>
-        <a href="/task/edit/${task.id}${requestDTO.question}" class="col-auto btn btn-outline-light">Edit</a>
+        <a href="/task${requestDTO.usePage()}" class="col-auto btn btn-secondary">Back to List</a>
+        <a href="/task/edit/${task.id}${requestDTO.usePage()}" class="col-auto btn btn-outline-light">Edit</a>
       </div>
       <button id="deleteButton" class="col-auto btn btn-danger">Delete</button>
       <form id="HiddenForm">
@@ -57,9 +57,6 @@
 </div>
 <script>
   function actionDelete() {
-    // const form = document.createElement('form');
-    // document.body.appendChild(form);
-
     const form = document.querySelector('#HiddenForm');
     form.action = '/task/delete/${task.id}';
     form.method = 'POST';
